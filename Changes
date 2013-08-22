@@ -15,6 +15,10 @@ http://rt.cpan.org/Public/Dist/Display.html?Name=SOAP-Lite
 THIS RELEASE
 -----------------------------------------------------------------------
 
+1.06 August 22, 2013
+    ! Silence uninitialized warning if $ns is not set.
+    ! Silence redefine warnings if caching is off.
+
 1.05 August 18, 2013
     ! #87848 Fix manifest, fix invalid http version from release blunder
 

@@ -17,7 +17,7 @@ package SOAP::Lite;
 use strict;
 use warnings;
 
-our $VERSION = '1.05';
+our $VERSION = '1.06';
 
 package SOAP::XMLSchemaApacheSOAP::Deserializer;
 
@@ -3275,7 +3275,7 @@ sub refresh_cache {
 
 sub load {
     my $self = shift->new;
-    local $^W; # suppress warnings about redefining
+    no warnings 'redefine'; # suppress warnings about redefining
     foreach (keys %{$self->services || Carp::croak 'Nothing to load. Schema is not specified'}) {
         # TODO - check age of cached file, and delete if older than configured amount
         if ($self->cache_dir) {
@@ -3394,7 +3394,7 @@ EOP
     foreach my $key (keys %{$namespaces}) {
         my ($ns,$prefix) = SOAP::Utils::splitqname($key);
         $self->{'_stub'} .= '  $self->serializer->register_ns("'.$namespaces->{$key}.'","'.$prefix.'");'."\n"
-            if ($ns eq "xmlns");
+            if ($ns and $ns eq "xmlns");
     }
     $self->{'_stub'} .= <<'EOP';
     my $som = $self->SUPER::call($method => @parameters);
